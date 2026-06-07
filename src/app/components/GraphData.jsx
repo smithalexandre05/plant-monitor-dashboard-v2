@@ -9,6 +9,7 @@ import { formatDecimal, soilRawToPerc } from '@/lib/formatters';
 export default function GraphReadings() {
 
     const [oneDayGraphData, setOneDayGraphData] = useState([]);
+    const [liveSoilMoist, setLiveSoilMoist] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,6 +18,18 @@ export default function GraphReadings() {
             setOneDayGraphData(json.oneDayData)
         }
         fetchData()
+    }, [])
+
+    // Duplicate fetch but acceptable for now
+    useEffect(() => {
+    const fetchLiveReading = async () => {
+            const response = await fetch('/api/telemetry')
+            const json = await response.json()
+            setLiveSoilMoist(json.data)
+    }
+        fetchLiveReading()
+            const interval = setInterval(fetchLiveReading, 30000)
+            return () => clearInterval(interval)
     }, [])
 
     console.log(oneDayGraphData);
@@ -30,7 +43,7 @@ export default function GraphReadings() {
         <div className="grid grid-cols-2 gap-6 mt-6">
             <GraphCard icon={<Droplets size={26} strokeWidth={1.5} className="text-svg"/>}
             graphTitle="Soil Moisture"
-            graphLiveReading={`${soilRawToPerc(oneDayGraphData?.[0]?.avgSoil)}%`} 
+            graphLiveReading={`${soilRawToPerc(liveSoilMoist?.sensors?.soilRaw)}%`} 
             chart={
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={percSoilReading} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
