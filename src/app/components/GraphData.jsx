@@ -174,7 +174,8 @@ export default function GraphReadings() {
                     fill="url(#lightGradient)"
                     name="Light Level"/>
                 </AreaChart>
-            </ResponsiveContainer>}/>
+            </ResponsiveContainer>}
+            readingNote="Light readings are relative to this sensor and show brightness trends rather than exact lux values."/>
 
             <GraphCard/>
 
