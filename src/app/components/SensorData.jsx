@@ -22,7 +22,7 @@ export default function LiveReadings() {
         return () => clearInterval(interval)
     }, [])
 
-    // console.log(sensorData);
+    console.log(sensorData);
     const soilStyles = getSoilStyles(sensorData?.sensors?.soilState);
     const glStyles = getGLStyles(sensorData?.actuators?.growLightOn);
 
