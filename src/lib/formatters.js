@@ -55,3 +55,16 @@ export function soilRawToPerc(soilMoistureReading) {
     }
     return parseFloat(percentage).toFixed(2);
 }
+
+export function lightRawToPerc(lightReading) {
+    const darkEnd = 0
+    const brightEnd = 1023
+    let percentage = ((lightReading - darkEnd) / (brightEnd - darkEnd)) * 100
+
+    if (percentage > 100) {
+        percentage = 100
+    } else if (percentage < 0) {
+        percentage = 0
+    }
+    return parseFloat(percentage).toFixed(2);
+}

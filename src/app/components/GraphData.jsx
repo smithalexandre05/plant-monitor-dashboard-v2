@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import GraphCard from '@/app/components/GraphCard'
 import { Droplets, Thermometer, Sun} from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
-import { formatDecimal, soilRawToPerc } from '@/lib/formatters';
+import { formatDecimal, lightRawToPerc, soilRawToPerc } from '@/lib/formatters';
 
 export default function GraphReadings() {
 
@@ -133,13 +133,48 @@ export default function GraphReadings() {
 
             <GraphCard icon={<Sun size={26} strokeWidth={1.5} className='text-svg'/>}
             graphTitle="Light Level"
-            graphLiveReading={liveReading?.sensors?.lightRaw}
+            graphLiveReading={`${lightRawToPerc(liveReading?.sensors?.lightRaw)}%`}
             chart={
-                <ResponsiveContainer>
-                    <AreaChart>
-                    </AreaChart>
-                </ResponsiveContainer>
-            }/>
+            <ResponsiveContainer>
+                <AreaChart data={oneDayGraphData} margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
+                    <defs>
+                        <linearGradient id="lightGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#facc15" stopOpacity={0.4} />
+                            <stop offset="100%" stopColor="#facc15" stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                <CartesianGrid stroke="#2a2a2a" strokeDasharray="3 3" vertical={false} />
+                <XAxis
+                    dataKey="_id"
+                    tickFormatter={(value) => new Date(value).getHours() + ":00"}
+                    stroke="#52525b"
+                    tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                    tickLine={false}
+                    axisLine={false}/>
+                <YAxis
+                    stroke="#52525b"
+                    tick={{ fill: "#a1a1aa", fontSize: 12 }}
+                    tickLine={false}
+                    axisLine={false}
+                    width={40}
+                    domain={[0, 100]}/>
+                <Tooltip
+                    contentStyle={{
+                        backgroundColor: "#1a1a1a",
+                        border: "1px solid #2a2a2a",
+                        borderRadius: "8px",
+                        color: "#f4f4f5" }}
+                    labelFormatter={(value) => new Date(value).getHours() + ":00"}
+                    formatter={(value) => `${formatDecimal(value)}%`}/>
+                <Area
+                    type="monotone"
+                    dataKey="avgLight"
+                    stroke="#facc15"
+                    strokeWidth={2}
+                    fill="url(#lightGradient)"
+                    name="Light Level"/>
+                </AreaChart>
+            </ResponsiveContainer>}/>
 
             <GraphCard/>
 
