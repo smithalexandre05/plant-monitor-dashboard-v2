@@ -2,25 +2,36 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0A0A0A;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --color-card: #262626;
+  --color-background: #0f0f0f;
+  --color-card: #1a1a1a;
+  --color-border: #2a2a2a;
+  --color-title: #f4f4f5;
+  --color-subtitle: #a1a1aa;
+  --color-icon: #242424;
+  --color-valInactive: #52525b;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Icon colors */
+  --color-svg: #f4f4f5;
+
+  /* Grow Light */
+  --color-glActive: #facc15;
+  --color-glActiveBg: #2a2a15;
+
+  /* Soil Moisture state colors */
+  --color-smDry: #f59e0b;
+  --color-smDryBg: #2d2210;
+  --color-smMoist: #22c55e;
+  --color-smMoistBg: #0f2318;
+  --color-smWet: #38bdf8;
+  --color-smWetBg: #0e2130;
 }
 
 body {
-  background: var(--background);
+  background: var(--color-background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
