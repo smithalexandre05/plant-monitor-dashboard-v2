@@ -27,30 +27,30 @@ export default function LiveReadings() {
     const glStyles = getGLStyles(sensorData?.actuators?.growLightOn);
 
     return (
-    <div className="flex flex-row justify-between ">
+    <div className="grid grid-cols-5 col-span-full gap-x-5 pb-3">
 
-        <SensorCard title="Soil Moisture" icon={<Droplets size={26} strokeWidth={1.5} 
+        <SensorCard title="SOIL MOISTURE" icon={<Droplets size={26} strokeWidth={1.5} 
             className={soilStyles.iconColor}/>} 
             iconBgColor={soilStyles.bgColor} 
             soilFont={soilStyles.fontColor} 
             data={sensorData?.sensors?.soilState}/>
 
-        <SensorCard title="Temperature" icon={<Thermometer size={26} strokeWidth={1.5} className='text-svg'/>}
+        <SensorCard title="TEMPERATURE" icon={<Thermometer size={26} strokeWidth={1.5} className='text-svg'/>}
             iconBgColor="bg-icon"
             soilFont="text-title" 
             data={`${formatDecimal(sensorData?.sensors?.temperature)}°C`}/>
 
-        <SensorCard title="Humidity" icon={<Bubbles size={26} strokeWidth={1.5} className='text-svg'/>} 
+        <SensorCard title="HUMIDITY" icon={<Bubbles size={26} strokeWidth={1.5} className='text-svg'/>} 
             iconBgColor="bg-icon"
             soilFont="text-title" 
             data={`${formatDecimal(sensorData?.sensors?.humidity)}%`}/>
 
-        <SensorCard title="Pump Status" icon={<Power size={26} strokeWidth={1.5} className='text-valInactive'/>}
+        <SensorCard title="PUMP STATUS" icon={<Power size={26} strokeWidth={1.5} className='text-valInactive'/>}
             iconBgColor="bg-icon"
-            soilFont="font-medium text-valInactive" 
-            data={stringConversion(sensorData?.actuators?.pumpRunning)}/>
+            soilFont="text-valInactive" 
+            data={stringConversion(sensorData?.actuators?.pumpActivated)}/>
 
-        <SensorCard title="Grow Light" icon={<Lightbulb size={26} strokeWidth={1.5} className={glStyles.iconColor}/>}
+        <SensorCard title="GROW LIGHT" icon={<Lightbulb size={26} strokeWidth={1.5} className={glStyles.iconColor}/>}
             iconBgColor={glStyles.bgColor}
             soilFont={glStyles.fontColor} 
             data={stringConversion(sensorData?.actuators?.growLightOn)}/>

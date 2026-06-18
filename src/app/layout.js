@@ -3,15 +3,14 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700', '800'],
 });
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.className} h-full antialiased`}
-    >
+      className={`${inter.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

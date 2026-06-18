@@ -22,7 +22,7 @@ export async function GET() {
         const oneDayData = await data.toArray();
         return NextResponse.json({ oneDayData }, { status: 200 });
     } catch (error) {
-        console.log(err);
+        console.log(error);
         return NextResponse.json({ message: 'Error fetching Graph data' }, { status: 500 }); 
     }
 }

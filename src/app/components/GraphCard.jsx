@@ -4,11 +4,11 @@ export default function GraphCard({icon, graphTitle, graphLiveReading, chart, re
             {/* div for header of graph cards, will include toggle switch later... */}
             <div className="flex">
                 <div>{icon}</div>
-                <h2 className="text-title text-xl pl-3 font-normal">{graphTitle}</h2>
+                <h2 className="text-lg text-title font-semibold pl-3">{graphTitle}</h2>
             </div>
             {/* Div for live reading */}
             <div className="text-title pt-3">
-                <h2 className="text-3xl font-medium">{graphLiveReading}</h2>
+                <h2 className="text-3xl font-semibold">{graphLiveReading}</h2>
             </div>
             <div className="flex-1 min-h-0 pt-5">{chart}</div>
             <div>
