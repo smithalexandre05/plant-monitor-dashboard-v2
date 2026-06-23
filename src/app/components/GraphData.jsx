@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import GraphCard from '@/app/components/GraphCard'
-import SysLogStatCard from '@/app/components/SysLogCard'
 import { Droplets, Thermometer, Sun, Power, Lightbulb } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import { formatDecimal, lightRawToPerc, soilRawToPerc, milliToString, milliToTime, getWateringFormat, getLightingFormat, getClimateFormat } from '@/lib/formatters';
+import { formatDecimal, lightRawToPerc, soilRawToPerc, milliToString, milliToTime } from '@/lib/formatters';
 
 export default function GraphReadings() {
 
@@ -46,8 +45,6 @@ export default function GraphReadings() {
             const interval = setInterval(fetchActuatorData, 60000)
             return () => clearInterval(interval)
     }, [])
-
-    console.log(actuatorData);
 
     // Converting Soil Readings to percentages
     const percSoilReading = oneDayGraphData.map((reading) => ({
@@ -101,26 +98,6 @@ export default function GraphReadings() {
         } else { return 0 }
     }
 
-    // Actuator Card Component
-    // function ActuatorStatus({ icon, title, items}) {
-
-    //     return (
-    //         <div className='h-1/2 flex flex-col justify-center'>
-    //             <div className='flex flex-row'>
-    //                 <div>{icon}</div>
-    //                 <h2 className='text-title text-xl pl-3 font-normal'>{title}</h2>
-    //             </div>
-    //             <div className='grid grid-cols-3 gap-4 pt-5'>
-    //                 {items.map((item) => (
-    //                     <div key={item.label} className=''>
-    //                         <h2 className='text-subtitle pl-4'>{item.label}</h2>
-    //                         <p className='text-title pl-4 font-bold'>{item.value}</p>
-    //                     </div>
-    //                 ))}
-    //             </div>
-    //         </div>
-    //     );
-    // }
     function ActuatorStatus({ icon, title, items }) {
     return (
         <div className='h-full flex flex-col justify-center'>
@@ -140,43 +117,10 @@ export default function GraphReadings() {
     );
     }
 
-    // System Logic Formatting
-    const sysLogWatering = getWateringFormat(liveReading?.sensors?.soilState, liveReading?.system?.wateringCooldownOver);
-    const sysLogLighting = getLightingFormat(liveReading?.system?.insideLightWindow, liveReading?.actuators?.growLightOn);
-    const sysLogClimate = getClimateFormat(liveReading?.sensors?.temperature, liveReading?.sensors?.humidity);
-
     return (
-        <div className="grid grid-cols-2 gap-5 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-            <h4 className="text-xs tracking-[0.11em] text-subtitle font-bold">SYSTEM STATUS</h4>
-            {/* div for status tile */}
-            <div className='w-full col-span-2 grid grid-cols-3 gap-x-5 pb-5'>
-                <SysLogStatCard
-                bgColor={sysLogWatering.bgColor}
-                borderColor={sysLogWatering.borderColor}
-                icon={sysLogWatering.icon}
-                titleColor={sysLogWatering.titleColor}
-                title={sysLogWatering.title}
-                message={sysLogWatering.message}/>
-
-                <SysLogStatCard
-                bgColor={sysLogLighting.bgColor}
-                borderColor={sysLogLighting.borderColor}
-                icon={sysLogLighting.icon}
-                titleColor={sysLogLighting.titleColor}
-                title={sysLogLighting.title}
-                message={sysLogLighting.message}/>
-
-                <SysLogStatCard
-                bgColor={sysLogClimate.bgColor}
-                borderColor={sysLogClimate.borderColor}
-                icon={sysLogClimate.icon}
-                titleColor={sysLogClimate.titleColor}
-                title={sysLogClimate.title}
-                message={sysLogClimate.message}/>
-            </div>
-
-            <h4 className="col-span-full text-xs tracking-[0.11em] text-subtitle font-bold">TRENDS · PAST 24 HOURS</h4>
+            <h4 className="lg:col-span-full text-xs tracking-[0.11em] text-subtitle font-bold">TRENDS · PAST 24 HOURS</h4>
 
             <GraphCard icon={<Droplets size={26} strokeWidth={1.5} className="text-svg"/>}
             graphTitle="Soil Moisture"
@@ -313,10 +257,10 @@ export default function GraphReadings() {
             </ResponsiveContainer>}
             readingNote="Light readings are relative to this sensor and show brightness trends rather than exact lux values."/>
 
-            <div className='w-full h-80 bg-card border-2 border-border rounded-2xl p-6'>
-                <div className='grid grid-cols-2 h-full relative'>
+            <div className='w-full h-auto sm:h-80 bg-card border-2 border-border rounded-2xl p-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 h-full relative gap-6 sm:gap-0'>
                     {/* Left column — Grow Light */}
-                    <div className='pr-6'>
+                    <div className='sm:pr-6'>
                         <ActuatorStatus
                             icon={<Lightbulb size={26} strokeWidth={1.5} className="text-svg"/>}
                             title="Grow Light"
@@ -328,9 +272,10 @@ export default function GraphReadings() {
                         />
                     </div>
 
-                    <div className='absolute left-1/2 top-4 bottom-4 w-0.5 bg-border -translate-x-1/2'></div>
+                    {/* Divider: vertical on desktop, horizontal on mobile */}
+                    <div className='hidden sm:block absolute left-1/2 top-4 bottom-4 w-0.5 bg-border -translate-x-1/2'></div>
 
-                    <div className='pl-6'>
+                    <div className='sm:pl-6'>
                         <ActuatorStatus
                             icon={<Power size={26} strokeWidth={1.5} className='text-svg'/>}
                             title="Water Pump"

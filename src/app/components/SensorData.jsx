@@ -22,12 +22,11 @@ export default function LiveReadings() {
         return () => clearInterval(interval)
     }, [])
 
-    console.log(sensorData);
     const soilStyles = getSoilStyles(sensorData?.sensors?.soilState);
     const glStyles = getGLStyles(sensorData?.actuators?.growLightOn);
 
     return (
-    <div className="grid grid-cols-5 col-span-full gap-x-5 pb-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 pb-3">
 
         <SensorCard title="SOIL MOISTURE" icon={<Droplets size={26} strokeWidth={1.5} 
             className={soilStyles.iconColor}/>} 
@@ -53,6 +52,8 @@ export default function LiveReadings() {
         <SensorCard title="GROW LIGHT" icon={<Lightbulb size={26} strokeWidth={1.5} className={glStyles.iconColor}/>}
             iconBgColor={glStyles.bgColor}
             soilFont={glStyles.fontColor} 
+            wrapperClass="col-span-2 sm:col-span-1"
+            wide={true}
             data={stringConversion(sensorData?.actuators?.growLightOn)}/>
     </div>
     )

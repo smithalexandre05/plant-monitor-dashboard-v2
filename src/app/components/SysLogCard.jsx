@@ -18,7 +18,7 @@ export default function SysLogStatCard({ bgColor, borderColor, icon, titleColor,
     };
 
     return (
-        <div className={`p-6 h-30 w-1/3 border-1 w-full rounded-2xl ${bgColor} ${borderColor}`}>
+        <div className={`p-6 min-h-28 sm:h-30 w-full border-1 rounded-2xl ${bgColor} ${borderColor}`}>
             <div className={`flex justify-start items-center gap-2 font-bold text-sm ${titleColor}`}>
                 <div>{iconMap[icon]}</div>
                 <h2>{title}</h2>
