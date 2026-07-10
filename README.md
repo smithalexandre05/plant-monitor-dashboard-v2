@@ -9,7 +9,7 @@ This is the web and cloud half of a two-part system. It receives live telemetry 
 
 ---
 
-![Plant Monitor Dashboard](./assets/dashboard.png)
+![Plant Monitor Dashboard](./dashboard.png)
 
 ---
 
